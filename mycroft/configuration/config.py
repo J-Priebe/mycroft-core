@@ -81,7 +81,6 @@ def translate_list(config, values):
         translate_remote(config[module], v)
 
 
-
 class LocalConf(dict):
     """Config dictionary from file."""
     def __init__(self, path):

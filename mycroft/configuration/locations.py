@@ -21,7 +21,9 @@ USER_CONFIG = join(expanduser('~'), '.mycroft/mycroft.conf')
 REMOTE_CONFIG = "mycroft.ai"
 WEB_CONFIG_CACHE = os.environ.get('MYCROFT_WEB_CACHE',
                                   '/var/tmp/mycroft_web_cache.json')
-TEST_CONFIG = join(dirname(__file__), '../../test/integrationtests', 'mycroft.conf')
+TEST_CONFIG = join(dirname(__file__),
+                   '../../test/integrationtests', 'mycroft.conf')
+
 
 def __ensure_folder_exists(path):
     """ Make sure the directory for the specified path exists.
