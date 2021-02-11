@@ -100,7 +100,9 @@ def before_all(context):
     context.step_timeout = 10  # Reset the step_timeout to 10 seconds
     context.matched_message = None
     context.log = log
-    context.config = Configuration.get()
+    context.config = Configuration.get(
+        configs=Configuration.get_config_list_for_test_env()
+    )
     Configuration.set_config_update_handlers(bus)
 
 
