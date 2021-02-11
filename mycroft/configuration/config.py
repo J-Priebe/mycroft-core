@@ -23,8 +23,8 @@ from requests import RequestException
 from mycroft.util.json_helper import load_commented_json, merge_dict
 from mycroft.util.log import LOG
 
-from .locations import (DEFAULT_CONFIG, SYSTEM_CONFIG, USER_CONFIG,
-                        WEB_CONFIG_CACHE)
+from .locations import (DEFAULT_CONFIG, SYSTEM_CONFIG, TEST_CONFIG,
+                        USER_CONFIG, WEB_CONFIG_CACHE)
 
 
 def is_remote_list(values):
@@ -79,6 +79,7 @@ def translate_list(config, values):
             config["module"] = module
         config[module] = config.get(module, {})
         translate_remote(config[module], v)
+
 
 
 class LocalConf(dict):
@@ -226,6 +227,17 @@ class Configuration:
             return Configuration.__config
         else:
             return base
+
+    @staticmethod
+    def get_config_list_for_test_env():
+        '''
+        Returns a list of configs identical to the default
+        in :load_config_stack, with the addition of TEST_CONFIG
+        which supercedes all configs except for :__patch.
+        '''
+        return [LocalConf(DEFAULT_CONFIG), RemoteConf(),
+                LocalConf(SYSTEM_CONFIG), LocalConf(USER_CONFIG),
+                LocalConf(TEST_CONFIG), Configuration.__patch]
 
     @staticmethod
     def set_config_update_handlers(bus):
